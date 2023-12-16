@@ -1,0 +1,102 @@
+{% extends "base.html" %} 
+{% load crispy_forms_tags %}
+{% block title %}Planner{% endblock title %} 
+{% block body%}
+
+<div style="text-align: center;margin: 20px; color:aqua">
+  <h1>Planner</h1>
+</div>
+
+
+
+{% if object_list %}
+<div class="container">
+    <table class="table table-dark table-striped">
+        <thead>
+          <tr>
+            <th >Destination</th>
+            <th >Budget in USD </th>
+            <th >Priority</th>
+            <th >Date</th>
+            <th >Travel Bag</th>
+            <th >Note</th>
+            <th >Status</th>
+            <th>Delete</th>
+            <th>Update</th>
+          </tr>
+        </thead>
+        <tbody>
+            {% for object in object_list %}
+          <tr>
+           <th>{{object.destination}}</th> 
+           <th>{{object.budget}}</th> 
+           <th>{{object.priority}}</th> 
+           <th>{{object.date}}</th> 
+           <th>{{object.travelbag}}</th> 
+           <th>{{object.note}}</th> 
+           <th>{% if object.Status is False %}
+            <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+
+            Not Done
+            {% endif %}
+            {% if object.Status %}
+            <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+            
+            Done 
+            {% endif %}
+          </th>
+        <th>
+            <a class="btn btn-danger" href="{% url "deleteplan" object.pk %}"></i>Delete</a>
+          </th> 
+          <th><a class="btn btn-success" href="{% url "updateplan" object.pk %}"></i>Done</a>
+          </th>
+           
+        </tr>
+        {%endfor%}
+          
+        </tbody>
+      </table>
+      {% endif%}
+      <!-- Button trigger modal -->
+      <div class="container">
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+          <button type="button" class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Create Plan
+          </button>
+        
+        </div>
+      </div>
+      
+      
+
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel" style="color: darkslategrey;">Create Plan</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" style="color: black;" >
+            <form method="post" action="{% url 'createplan' %}" novalidate class="needs-validation">
+                <div class="row">
+                    {% crispy planform %}
+                    <div>
+                        <button class="btn btn-primary " type="submit">Create</button>
+                    </div>
+    
+                </div>
+            </form>
+        </div>
+        
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

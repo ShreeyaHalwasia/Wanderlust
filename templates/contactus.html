@@ -1,0 +1,45 @@
+{% extends "base.html" %} 
+{% block title %}ContactUs{% endblock title %} 
+{% block body%}
+
+<div style="text-align: center;margin: 20px; color:aqua">
+  <h1>Contact-Us</h1>
+</div>
+
+{% if prompt %}
+
+<div class="container">
+
+  <div class="alert alert-success d-flex align-items-center" role="alert">
+    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+    <div>
+      {{prompt}}
+    </div>
+  </div>
+</div>
+{% endif %}
+
+    <div class="card bg-dark text-white"style='margin:20px' >
+        <div class="card-body">
+          <form action="{% url 'contact_us' %}" method="POST">
+            {%csrf_token%}
+            <div class="mb-3">
+                <label for="message_name" class="form-label">Subject</label>
+                <input type="text" class="form-control" id="message_name" name="message_name" aria-describedby="emailHelp">
+              </div>
+            <div class="mb-3">
+              <label for="message_email" class="form-label">Email address</label>
+              <input type="email" class="form-control" id="message_email" name="message_email" aria-describedby="emailHelp">
+              <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+            </div>
+            <div class="mb-3">
+              <label for="message" class="form-label">Message</label>
+              <input type="text" class="form-control" id="message" name="message">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+          
+        </div>
+      </div>
+</div>
+{% endblock %}

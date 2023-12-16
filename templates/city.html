@@ -1,0 +1,74 @@
+{% extends "base.html" %} 
+{% block title %}Wanderlust{% endblock title %}
+{% block body%}
+
+<div style="text-align: center;margin: 20px; color: aqua;">
+    <h1>Get all available hotels at your travel destination</h1>
+  </div>
+<div class="container" >
+
+    <div class="row height d-flex justify-content-center align-items-center">
+  
+      <div class="col-md-6">
+  
+        <div class="form" style=" border-radius: 5px; padding: 20px; background-color:#453C67">
+          <i class="fa fa-search"></i>
+          <form id="myForm" method="post" action="">
+            {%csrf_token%}
+        
+            <input type="text" class="form-control form-input" id="city" name="city" placeholder="Search for hotels...">
+            <br>
+            <input type="date" class="form-control form-input" id="checkin" name="checkin" placeholder="Checkin Date">
+            <br>
+            <input type="date" class="form-control form-input" id="checkout" name="checkout" placeholder="Checkout Date">
+            <br>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+  
+              <button type="submit" class="btn btn-block btn-primary">Check</button>
+            </div>
+            <br>
+            </div>
+          </form>
+        
+        </div>
+        
+        
+      </div>
+      
+    </div>
+    
+  </div>
+  <br>
+  <br>
+  {% if info %}
+  <div class="container">
+
+      <table class="table table-dark text-white">
+        <thead>
+          <tr>
+            <th scope="col">Hotel Name</th>
+            <th scope="col">Address</th>
+            <th scope="col">Photo</th>
+            <th scope="col">Review</th>
+            <th scope="col">Visit</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for each in info.result %}
+          <tr>
+            <td>{{each.hotel_name}}</td>
+            <td>{{each.address}}</td>
+            <td><img src="{{each.main_photo_url}}" style="width: 40px;" alt=""></td>
+            <td>{{each.review_score}}</td>
+            <td> <a href="{{each.url}}">{{each.url}}</a> </td>
+    
+           
+          </tr>
+        {% endfor %}
+         
+        </tbody>
+      </table>
+  </div>
+  {% endif %}
+
+{% endblock %}

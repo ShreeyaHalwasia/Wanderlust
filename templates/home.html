@@ -1,0 +1,347 @@
+<img src="static/Wanderlust_new.png" class="img-fluid" alt="Responsive image">
+
+{% extends "base.html" %} 
+{% load crispy_forms_tags %}
+
+{% block title %}Wanderlust{% endblock title %} 
+{% block body%} 
+  
+<br>
+<br>
+<div class="container container-sm" style="max-width: 60rem;" >
+    <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img src="static/1.jpg" class="d-block w-100" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+              <h5>Have a Safe Journey!</h5>
+              <p>Time is short, take time to travel.</p>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img src="static/4.jpg" class="d-block w-100" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+              <h5>Travel is an investment in yourself!</h5>
+              <p>Once a year go somewhere you have never been before.</p>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img src="static/4.jpg" class="d-block w-100" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+              <h5>Find joy in the journey!</h5>
+              <p>Travel leaves you speechless and turns you into a storyteller.</p>
+            </div>
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+</div>
+<br>
+<br>
+<div class="row height d-flex justify-content-center align-items-center">
+  <div class="card text-white bg-dark mb-3" style="border-color: rgba(0, 0, 0, 0); max-width: 85rem; ">
+  <table class="table table-bordered" style="border-color: rgba(0, 0, 0, 0);">
+    <tr>
+      <td style="max-width: 15rem;">
+        <img src="https://images.unsplash.com/photo-1477862096227-3a1bb3b08330?ixlib=rb-1.2.1&auto=format&fit=crop&w=700&q=60" alt="" class="card-img-top">
+
+      </td>
+      <td>
+
+          <div class="card-body">
+            <h5 class="card-title text-white">Get your Itinerary!</h5>
+            <p class="card-text text-white">Please enter the tour destination and number of days for stay to get a curated travel Itinerary just for you!!</p>
+           <a href="" class="btn btn-outline-success btn-sm">Read More</a>
+          </div>
+         </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  
+</div>
+<br>
+
+
+
+<div class="container" >
+
+    <div class="row height d-flex justify-content-center align-items-center">
+
+      <div class="col-md-6">
+
+        <div class="form" style=" border-radius: 5px; padding: 20px; background-color:#453C67">
+          <i class="fa fa-search"></i>
+          <form id="myForm" method="post" action="/">
+            {%csrf_token%}
+        
+            <input type="text" class="form-control form-input" placeholder="Enter Location..." name="location">
+            <br>
+            <input type="number" class="form-control form-input" placeholder="Enter Days.."name="days">
+            <div class="d-grid gap-2">
+            <br>
+            <button type="submit" class="btn btn-block btn-primary">Check</button>
+            <br>
+            </div>
+          </form>
+        
+        </div>
+        
+      </div>
+      
+    </div>
+    
+  </div>
+<br>
+<table class="table table-hover table-dark">
+  <tbody>
+{% for each in tplan.plan %}
+    <tr>
+      <th scope="row">{{each.day}}</th>
+      {% for eacha in each.activities %}
+      <td>
+
+        <div class="card text-center text-white bg-dark mb-3" style="max-width: 200px;height:250px; border-color: aliceblue;">
+          <div class="card-header">Day: {{each.day}} activity</div>
+          <div class="card-body">
+            <h5 class="card-title">{{eacha.time}}</h5>
+            <p class="card-text">{{eacha.description}}</p>
+            <input type="checkbox">
+          </div>
+          <div class="card-footer bg-light text-muted">Enjoy!</div>
+        </div>
+      </td>
+      <!-- <td>{{eacha.time}} </td>
+      <td>{{eacha.description}}</td> -->
+      {% endfor %}
+    </tr>
+{% endfor %}
+  
+
+  </tbody>
+</table>
+
+
+<br>
+
+<div class="row height d-flex justify-content-center align-items-center">
+  <div class="card text-white bg-dark mb-3" style="border-color: rgba(255, 255, 255, 0.186); max-width: 85rem; ">
+  <table class="table table-bordered" style="border-color: rgba(0, 0, 0, 0);">
+    <tr>
+      <td style="max-width: 15rem;">
+        <img src="https://images.unsplash.com/photo-1516214104703-d870798883c5?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=700&q=60" alt="" class="card-img-top">
+
+      </td>
+      <td>
+
+          <div class="card-body">
+            <h5 class="card-title text-white">Places!</h5>
+            <p class="card-text text-white">Enter places of interest like malls, hotels, bars and instantly get top 20 recommendations!!</p>
+           <a href="" class="btn btn-outline-success btn-sm">Read More</a>
+          </div>
+         </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+<br>
+
+
+<div class="container" >
+  <br>
+  <div class="row height d-flex justify-content-center align-items-center">
+
+    <div class="col-md-6">
+
+      <div class="form" style=" border-radius: 5px; padding: 20px; background-color:#453C67">
+        <i class="fa fa-search"></i>
+        <form id="myForm" method="post" action="places/">
+          {%csrf_token%}
+      
+          <input type="text" class="form-control form-input" id="searchInput" name="searchInput" placeholder="Search for places...">
+          <br>
+          <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+
+            <button type="submit" class="btn btn-block btn-primary">Check</button>
+          </div>
+          <br>
+          </div>
+        </form>
+      
+      </div>
+      
+    </div>
+    
+  </div>
+  
+</div>
+<br>
+<br>
+<br>
+
+<div class="container">
+<div class="row">
+    <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
+      
+      <div class="card">
+        <img
+        src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/Nature/4-col/img%20(73).webp"
+        class="w-100 shadow-1-strong rounded mb-4"
+        alt="Boat on Calm Water"
+      />
+        <div class="card-body">
+          <h5 class="card-title">Boat on Calm Water</h5>
+          <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
+          <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+      </div>
+      <div class="card">
+        <img
+        src="https://mdbcdn.b-cdn.net/img/Photos/Vertical/mountain1.webp"
+        class="w-100 shadow-1-strong rounded mb-4"
+        alt="Wintry Mountain Landscape"
+      />
+        <div class="card-body">
+          <h5 class="card-title">Wintry Mountain Landscape</h5>
+          <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
+          <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+      </div>
+      
+    </div>
+  
+    <div class="col-lg-4 mb-4 mb-lg-0">
+      
+      <div class="card">
+        <img
+        src="https://mdbcdn.b-cdn.net/img/Photos/Vertical/mountain2.webp"
+        class="w-100 shadow-1-strong rounded mb-4"
+        alt="Mountains in the Clouds"
+      />
+        <div class="card-body">
+          <h5 class="card-title">Mountain in the Clouds</h5>
+          <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
+          <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+      </div>
+      <div class="card">
+        <img
+        src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/Nature/4-col/img%20(73).webp"
+        class="w-100 shadow-1-strong rounded mb-4"
+        alt="Boat on Calm Water"
+      />
+        <div class="card-body">
+          <h5 class="card-title">Boat on Calm Water</h5>
+          <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
+          <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+      </div>
+  
+      
+    </div>
+  
+    <div class="col-lg-4 mb-4 mb-lg-0">
+      
+      <div class="card">
+        <img
+        src="https://mdbcdn.b-cdn.net/img/Photos/Horizontal/Nature/4-col/img%20(18).webp"
+        class="w-100 shadow-1-strong rounded mb-4"
+        alt="Waves at Sea"
+      />
+        <div class="card-body">
+          <h5 class="card-title">Waves at Sea</h5>
+          <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
+          <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+      </div>
+      <div class="card">
+        <img
+        src="https://mdbcdn.b-cdn.net/img/Photos/Vertical/mountain3.webp"
+        class="w-100 shadow-1-strong rounded mb-4"
+        alt="Yosemite National Park"
+      />
+        <div class="card-body">
+          <h5 class="card-title">Yosemite National Park</h5>
+          <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
+          <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  <!-- Gallery -->
+</div>
+<br>
+<div style="text-align: center;margin: 20px; color:aqua">
+  <h1>Reviews</h1>
+</div>
+<div class="card bg-dark text-white"style='margin:20px' >
+  <div class="card-body">
+    <form method="post" action="{% url 'createreview' %}" novalidate class="needs-validation">
+      <div class="row">
+          {% crispy reviewform %}
+          <div>
+              <button class="btn btn-primary " type="submit">Create</button>
+          </div>
+    
+      </div>
+    </form>
+    
+  </div>
+</div>
+<br>
+  <div class="row d-flex justify-content-center">
+    <div class="col-md-10">
+      {% for each in reviews %}
+      <div class="card">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-lg-8">
+              <h4>Review</h4>
+              <p class="text-muted fw-light mb-4">
+                {{each.review}}
+              </p>
+              <h5>Rating</h5>
+              <p class="fw-bold text-muted mb-0">{{each.rating}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <br>
+      <br>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}
+
+{% block javaScript %}
+<!-- <script>
+$(document).ready(function() {
+  $('#myForm').submit(function(event) {
+    event.preventDefault();
+    var formData = $(this).serialize();
+    print(formData)
+
+    $.ajax({
+      type: 'POST',
+      url: '',
+      data: {formData:formData,csrfmiddlewaretoken: '{{ csrf_token }}'},
+    });
+  });
+});
+
+</script> -->
+{% endblock javaScript %}
